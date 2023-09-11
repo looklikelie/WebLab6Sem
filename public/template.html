@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>SND</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/styles/style.css">
+    <script defer src="assets/scripts/page-load.js"></script>
+    <script src="assets/scripts/find-on-page.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=VT323&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="">
+            <a href="index.html">
+                <h1 class="site-name">
+                    SND
+                </h1>
+            </a>
+        </div>
+    </header>
+
+    <hr>
+
+    <nav class="navigate">
+        <ul>
+            <a href="index.html">
+                <li> Shop</li>
+            </a>
+            <a href="#">
+                <li> About</li>
+            </a>
+            <a href="#">
+                <li> Contacts</li>
+            </a>
+            <a href="#">
+                <li> WishList</li>
+            </a>
+            <a href="#">
+                <li> Computer Universe</li>
+            </a>
+        </ul>
+    </nav>
+
+    <hr>
+
+    <main class="main">
+        <form>
+            <input class="place_for_search" type="text" id="text-to-find" value="" placeholder="Search" autofocus>
+            <input class="button_for_turn_back" type="button" onclick="javascript: FindOnPage('text-to-find',false); return false;" value=" " title="Отменить поиск">
+            <input class="button_for_search" type="submit" onclick="javascript: FindOnPage('text-to-find',true); return false;" value=" " title="Начать поиск">
+        </form>
+
+        <h2>Try to find</h2>
+        <h2>Another one try</h2>
+    </main>
+
+    <hr>
+
+    <footer class="footer">
+        <p class="footer-p">Postnikov production LTD.<a href="https://t.me/LookLikeLie"><img
+                src="assets/images/telegram.svg.webp" alt="" style="width: 60px"></a></p>
+        <p id="page-load"></p>
+    </footer>
+</div>
+</body>
+</html>
