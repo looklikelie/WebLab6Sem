@@ -54,6 +54,4 @@ async function loadData(name) {
     } else {
         alert("Ошибка HTTP: " + response.status);
     }
-
-
 }

@@ -1,10 +1,42 @@
-import { Get, Controller, Render } from '@nestjs/common';
+import { Get, Controller, Render, UseInterceptors } from "@nestjs/common";
+import { AppInterceptor } from "./app.interceptor";
 
 @Controller()
+@UseInterceptors(AppInterceptor)
 export class AppController {
   @Get()
-  @Render('index')
+  @Render('pages/index')
   root() {
-    return { message: 'Hello world!' };
+    return {};
+  }
+
+  @Get('index')
+  @Render('pages/index')
+  root1() {
+    return {};
+  }
+
+  @Get('about')
+  @Render('pages/about')
+  root2() {
+    return {};
+  }
+
+  @Get('api')
+  @Render('pages/api')
+  root3() {
+    return {};
+  }
+
+  @Get('contacts')
+  @Render('pages/contacts')
+  root4() {
+    return {};
+  }
+
+  @Get('wishlist')
+  @Render('pages/wishlist')
+  root5() {
+    return {};
   }
 }

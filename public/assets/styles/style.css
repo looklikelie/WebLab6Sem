@@ -7,6 +7,13 @@ html, body {
     padding: 0;
 }
 
+.auth {
+    margin: 0;
+    position: absolute;
+    top: 5%;
+    right: 1%;
+}
+
 .wrapper {
     min-height: 100%;
     display: flex;

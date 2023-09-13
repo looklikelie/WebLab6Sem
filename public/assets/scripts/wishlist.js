@@ -22,7 +22,7 @@ function addUIItem(txt) {
         localStorage.setItem("tasks", JSON.stringify(savedTasks));
     });
 }
-let input = document.querySelector("#todo");
+let inputt = document.querySelector("#todo");
 let btn = document.querySelector("#add-btn");
 let list = document.querySelector("#list");
 let delAll = document.querySelector("#del-btn");
@@ -34,7 +34,7 @@ savedTasks.forEach(addUIItem);
 btn.addEventListener("click", () => {
     let now = today.toLocaleString();
 
-    let txt = input.value.trim();
+    let txt = inputt.value.trim();
     if (txt === "") {
         alert("Please, enter your wish...");
     } else {
@@ -42,7 +42,7 @@ btn.addEventListener("click", () => {
         txt = '[ ' +  now + ' ] ' + txt;
         savedTasks.push(txt);
         localStorage.setItem("tasks", JSON.stringify(savedTasks));
-        input.value = "";
+        inputt.value = "";
         addUIItem(txt);
     }
 });
