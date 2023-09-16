@@ -2,7 +2,7 @@ let today = new Date();
 let text = document.querySelector("#review");
 let btn = document.querySelector("#add-btn");
 let list = document.querySelector("#list");
-let url = 'http://localhost:8000/review';
+let url = 'https://looklikeliedns.onrender.com/review';
 
 const post_request = async (url = '', data = {}) => {
     const response = await fetch(url, {
