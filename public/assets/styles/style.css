@@ -193,7 +193,7 @@ hr {
 
 }
 
-.todo-generator, .rm-api-class, .about-content, .contacts-content {
+.todo-generator, .rm-api-class, .about-content, .contacts-content, .review-generator {
     text-align: center;
 }
 
@@ -223,7 +223,7 @@ hr {
 
 
 
-.todo-header, .rm-api-header, .about-header {
+.todo-header, .rm-api-header, .about-header, .review-header {
     /*font-family: 'VT323', monospace;*/
     color: #000000;
     font-size: 60px;
@@ -238,7 +238,7 @@ hr {
 }
 
 
-#todo, #add-btn, #del-btn, #rm-name, #btn {
+#todo, #add-btn, #del-btn, #rm-name, #btn, #review {
     background-color: white;
     border: solid 4px #880000;
     outline: none;
@@ -260,7 +260,7 @@ hr {
     padding-bottom: 15px;
 }
 
-#todo {
+#todo, #review {
     /*font-family: 'VT323', monospace;*/
     font-size: 23px;
     color: #000000;
