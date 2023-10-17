@@ -42,14 +42,14 @@ export class ReviewService {
         throw new NotFoundException("No such review!");
     }
 
+    async getAllRev(): Promise<Review[]> {
+        return this.prisma.review.findMany();
+    }
+
     async delete(id: number): Promise<void> {
         const review = await this.find(id);
         if (review) {
             await this.prisma.review.delete({ where: { id: +id } });
         }
-    }
-
-    async getAll(): Promise<Review[]> {
-        return this.prisma.review.findMany();
     }
 }

@@ -3,7 +3,7 @@ import {
     Body,
     Controller,
     Delete,
-    Get,
+    Get, GoneException,
     Param,
     ParseIntPipe,
     Post,
@@ -20,28 +20,6 @@ import {HttpExceptionFilter} from "../http-exception.filter";
 @UseFilters(new HttpExceptionFilter())
 export class ReviewController {
     constructor(private readonly reviewService: ReviewService) {
-    }
-
-    @ApiOperation({
-        summary: "Find all review"
-    })
-    @ApiResponse({
-        status: 200,
-        description: 'All review has been successfully received.'
-    })
-    @ApiResponse({
-        status: 403,
-        description: 'Forbidden.'
-    })
-    @Get("/all")
-    async getAllReview():
-        Promise<Review[]> {
-        try{
-            return await this.reviewService.getAll();
-        }
-        catch (error){
-            throw new BadRequestException();
-        }
     }
 
     @ApiOperation({
@@ -65,6 +43,28 @@ export class ReviewController {
         }
         catch (error){
             throw new BadRequestException();
+        }
+    }
+
+    @ApiOperation({
+        summary: "Find all review"
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'All review has been successfully received.'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden.'
+    })
+    @Get("/all")
+    async getAllReview():
+        Promise<Review[]> {
+        try{
+            return await this.reviewService.getAllRev();
+        }
+        catch (error){
+            throw new GoneException();
         }
     }
 
