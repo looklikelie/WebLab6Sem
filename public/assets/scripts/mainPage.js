@@ -1,6 +1,6 @@
 let list = document.querySelector("#list");
-// let url = 'https://looklikeliedns.onrender.com/review';
-let url = 'http://localhost:8000/product'
+let url = 'https://looklikeliedns.onrender.com/product';
+// let url = 'http://localhost:8000/product'
 const get_request = async (url = '') => {
     const response = await fetch(url, {
         method: 'GET',
