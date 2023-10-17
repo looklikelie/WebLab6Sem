@@ -1,4 +1,9 @@
 let today = new Date();
+let inputt = document.querySelector("#todo");
+let btn = document.querySelector("#add-btn");
+let list = document.querySelector("#list");
+let delAll = document.querySelector("#del-btn");
+let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 function addUIItem(txt) {
     let li = document.createElement("li");
@@ -22,18 +27,11 @@ function addUIItem(txt) {
         localStorage.setItem("tasks", JSON.stringify(savedTasks));
     });
 }
-let inputt = document.querySelector("#todo");
-let btn = document.querySelector("#add-btn");
-let list = document.querySelector("#list");
-let delAll = document.querySelector("#del-btn");
-
-let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 savedTasks.forEach(addUIItem);
 
-btn.addEventListener("click", () => {
+function add_to_LS(){
     let now = today.toLocaleString();
-
     let txt = inputt.value.trim();
     if (txt === "") {
         alert("Please, enter your wish...");
@@ -45,6 +43,16 @@ btn.addEventListener("click", () => {
         inputt.value = "";
         addUIItem(txt);
     }
+}
+
+inputt.addEventListener( 'keyup', event => {
+    if( event.code === 'Enter' ){
+        add_to_LS();
+    }
+});
+
+btn.addEventListener("click", () => {
+    add_to_LS();
 });
 
 delAll.addEventListener("click", () => {

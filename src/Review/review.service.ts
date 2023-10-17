@@ -1,6 +1,6 @@
-import { HttpException, Injectable, NotFoundException, NotImplementedException } from "@nestjs/common";
+import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from '../prisma.service';
-import { Review, Prisma } from '@prisma/client';
+import { Review } from '@prisma/client';
 import { ReviewDto } from "./dto/review.dto";
 
 @Injectable()
@@ -52,5 +52,4 @@ export class ReviewService {
     async getAll(): Promise<Review[]> {
         return this.prisma.review.findMany();
     }
-
 }

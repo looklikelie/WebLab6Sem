@@ -2,7 +2,8 @@ let today = new Date();
 let text = document.querySelector("#review");
 let btn = document.querySelector("#add-btn");
 let list = document.querySelector("#list");
-let url = 'https://looklikeliedns.onrender.com/review';
+// let url = 'https://looklikeliedns.onrender.com/review';
+let url = 'http://localhost:8000/review'
 
 const post_request = async (url = '', data = {}) => {
     const response = await fetch(url, {
@@ -19,37 +20,37 @@ const get_request = async (url = '') => {
     const response = await fetch(url, {
         method: 'GET',
     });
-    let gg = await response.json();
-    return gg;
+    return await response.json();
 }
 
-// async function get_rev(){
-//     let response = await fetch(url + '/all');
-//     return await response.json();
-// }
+gg = get_request(url + '/all');
+gg.then((result) => {
+    result.forEach((element) => addUIItem(element.text));
+});
 
-reviews = get_request(url + '/all');
-// let rev = reviews;
-// console.log(rev[1].text);
-// for(let i = 0; i < 5; i++){
-//     addUIItem(reviews[i].text);
-// }
-
-
-
-btn.addEventListener("click", () => {
+function add_to_BD(){
     let now = today.toLocaleString();
     let txt = text.value.trim();
-    post_request(url + '/create', {
-        text: txt,
-    });
     if (txt === "") {
         alert("Please, enter your review");
     } else {
         txt = '[ ' +  now + ' ] ' + txt;
+        post_request(url + '/create', {
+            text: txt,
+        });
         text.value = "";
         addUIItem(txt);
     }
+}
+
+text.addEventListener( 'keyup', event => {
+    if( event.code === 'Enter' ){
+        add_to_BD();
+    }
+});
+
+btn.addEventListener("click", () => {
+    add_to_BD();
 });
 
 function addUIItem(txt) {

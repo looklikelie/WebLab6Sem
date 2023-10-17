@@ -4,7 +4,7 @@ import {ApiProperty} from "@nestjs/swagger";
 export class OrderDto{
 
     @IsOptional()
-    @IsString()
+    @IsNumber()
     @ApiProperty()
     userId: number
 }

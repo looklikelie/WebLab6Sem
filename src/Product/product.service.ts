@@ -51,4 +51,8 @@ export class ProductService {
             await this.prisma.product.delete({ where: { id: +id } });
         }
     }
+
+    async getAllProd(): Promise<Product[]> {
+        return this.prisma.product.findMany();
+    }
 }

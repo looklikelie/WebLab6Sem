@@ -1,56 +1,152 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import {  Product } from "@prisma/client";
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get, GoneException,
+    Param,
+    ParseIntPipe,
+    Post,
+    UseFilters
+} from "@nestjs/common";
+import {ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
+import { Product } from "@prisma/client";
 import { ProductService } from "./product.service";
 import { ProductDto } from "./dto/product.dto";
-
-@ApiResponse({
-    status: 501,
-    description: "Not implemented"
-})
+import { HttpExceptionFilter } from "../http-exception.filter";
 
 @ApiTags("Product")
 @Controller("product")
+@UseFilters(new HttpExceptionFilter())
 export class ProductController {
-    constructor(private readonly productService: ProductService) {
+    constructor(private readonly productService: ProductService) {}
+
+
+    @ApiOperation({
+        summary: "Find all product"
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'All product has been successfully received.'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden.'
+    })
+    @Get("/all")
+    async getAllProduct():
+        Promise<Product[]> {
+        try{
+            return await this.productService.getAllProd();
+        }
+        catch (error){
+            throw new GoneException();
+        }
     }
 
     @ApiOperation({
         summary: "Create product"
     })
+    @ApiResponse({
+        status: 201,
+        description: 'The product has been successfully created.'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden.'
+    })
     @ApiBody({
         type: ProductDto
     })
     @Post("create")
-    async createReview(@Body() CreateProductDto: ProductDto): Promise<Product> {
-        return await this.productService.create(CreateProductDto);
+    async createProduct(@Body() CreateProductDto: ProductDto): Promise<Product> {
+        try{
+            return await this.productService.create(CreateProductDto);
+        }
+        catch (error){
+            throw new BadRequestException();
+        }
     }
 
     @ApiOperation({
         summary: "Update product"
     })
+    @ApiParam({ name: 'id', type: 'number' })
+    @ApiResponse({
+        status: 200,
+        description: 'The product has been successfully updated.'
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'There is no product with this ID'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden.'
+    })
     @Post(":id/update")
     async updateProduct(@Param("id", ParseIntPipe) id: number,
                      @Body() ProductDto: ProductDto):
         Promise<Product> {
-        return await this.productService.update(id, ProductDto);
+        try{
+            return await this.productService.update(id, ProductDto);
+        }
+        catch (error){
+            throw new BadRequestException();
+        }
     }
 
     @ApiOperation({
         summary: "Delete product"
     })
+    @ApiParam({ name: 'id', type: 'number' })
+    @ApiResponse({
+        status: 200,
+        description: 'The product has been successfully deleted.'
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'There is no product with this ID'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden.'
+    })
     @Delete(":id")
-    async deleteProduct(@Param("id") id: number):
+    async deleteProduct(@Param("id", ParseIntPipe) id: number):
         Promise<void> {
-        return await this.productService.delete(id);
+        try{
+            return await this.productService.delete(id);
+        }
+        catch (error){
+            throw new BadRequestException();
+        }
     }
 
     @ApiOperation({
-        summary: "Read product"
+        summary: "Get product"
+    })
+    @ApiParam({ name: 'id', type: 'number' })
+    @ApiResponse({
+        status: 200,
+        description: 'The product has been successfully received.'
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'There is no product with this ID'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden.'
     })
     @Get(":id")
-    async getProduct(@Param("id") id: number):
+    async getProduct(@Param("id", ParseIntPipe) id: number):
         Promise<Product> {
-        return await this.productService.find(id);
+        try{
+            return await this.productService.find(id);
+        }
+        catch (error){
+            throw new BadRequestException();
+        }
     }
 }
