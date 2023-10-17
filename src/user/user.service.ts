@@ -33,7 +33,6 @@ export class UserService {
                 id: +id
             },
             data: {
-                email: email,
                 name: name
             }
         });
