@@ -40,7 +40,7 @@ export class ProductController {
             return await this.productService.getAllProd();
         }
         catch (error){
-            throw new GoneException();
+            throw new BadRequestException();
         }
     }
 

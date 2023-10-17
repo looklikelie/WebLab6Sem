@@ -64,7 +64,7 @@ export class ReviewController {
             return await this.reviewService.getAllRev();
         }
         catch (error){
-            throw new GoneException();
+            throw new BadRequestException();
         }
     }
 
