@@ -238,7 +238,7 @@ hr {
 }
 
 
-#todo, #add-btn, #del-btn, #rm-name, #btn, #review {
+#todo, #add-btn, #del-btn, #rm-name, #btn, #review, #pass, #login, #mail, #name {
     background-color: white;
     border: solid 4px #880000;
     outline: none;
@@ -260,7 +260,7 @@ hr {
     padding-bottom: 15px;
 }
 
-#todo, #review {
+#todo, #review, #pass, #login, #mail, #name {
     /*font-family: 'VT323', monospace;*/
     font-size: 23px;
     color: #000000;

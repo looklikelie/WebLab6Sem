@@ -29,10 +29,10 @@ const createUser = (data) => {
 
 const getSignUpData = () => {
     return {
-        name: name,
-        email: mail,
-        login: login,
-        password: pass,
+        name: name.value.trim(),
+        email: mail.value.trim(),
+        login: login.value.trim(),
+        password: pass.value.trim(),
         superToken: '',
     };
 };
@@ -41,7 +41,8 @@ const getSignUpData = () => {
 let btn = document.querySelector("#add-btn");
 btn.addEventListener("click", () => {
     let data = getSignUpData();
-
+    alert(data.email)
+    alert(data.password)
     fetch('https://looklikeliedns.onrender.com/auth/signup', {
         method: 'POST',
         headers: {
