@@ -50,28 +50,6 @@ export class ReviewController {
     }
 
     @ApiOperation({
-        summary: "Find all review"
-    })
-    @ApiResponse({
-        status: 200,
-        description: 'All review has been successfully received.'
-    })
-    @ApiResponse({
-        status: 403,
-        description: 'Forbidden.'
-    })
-    @Get("/all")
-    async getAllReview():
-        Promise<Review[]> {
-        try{
-            return await this.reviewService.getAllRev();
-        }
-        catch (error){
-            throw new BadRequestException();
-        }
-    }
-
-    @ApiOperation({
       summary: "Update Review"
     })
     @ApiParam({ name: 'id', type: 'number' })
@@ -95,6 +73,28 @@ export class ReviewController {
         Promise<Review> {
         try{
             return await this.reviewService.update(id, ReviewDto);
+        }
+        catch (error){
+            throw new BadRequestException();
+        }
+    }
+
+    @ApiOperation({
+        summary: "Find all review"
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'All review has been successfully received.'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden.'
+    })
+    @Get("/all")
+    async getAllReview():
+        Promise<Review[]> {
+        try{
+            return await this.reviewService.getAllRev();
         }
         catch (error){
             throw new BadRequestException();
