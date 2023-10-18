@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>SND</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/styles/style.css">
+    <script defer src="/assets/scripts/page-load.js"></script>
+    <script src="/assets/scripts/find-on-page.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=VT323&display=swap"
+          rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+</head>
+<body class="home_page">
+<div class="wrapper">
+    {{>header}}
+    {{>menu}}
+    <hr>
+    <div id="app" class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-sm-12">
+                <h1 class="text-center">{{ title }}</h1>
+                <br>
+                <div id="status"></div>
+                <div id="chat">
+                    <input type="text" v-model="name" id="username" class="form-control" placeholder="Enter name">
+                    <br>
+                    <div class="card">
+                        <div id="messages" class="card-block">
+                        </div>
+                    </div>
+                    <br>
+                    <textarea id="textarea" class="form-control" v-model="text" placeholder="Enter message"></textarea>
+                    <br>
+                    <button id="send" class="btn" @click.prevent="sendMessage">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {{>footer}}
+</div>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            title: 'Nestjs Websockets Chat',
+            name: '',
+            text: '',
+            messages: [],
+            socket: null
+        },
+        methods: {
+            sendMessage() {
+                if(this.validateInput()) {
+                    const message = {
+                        name: this.name,
+                        text: this.text
+                    }
+                    this.socket.emit('msgToServer', message)
+                    this.text = ''
+                }
+            },
+            receivedMessage(message) {
+                let div = document.createElement('div');
+                div.innerHTML = `${message.name}: ${message.text}`
+                messages.append(div)
+            },
+            validateInput() {
+                return this.name.length > 0 && this.text.length > 0
+            }
+        },
+        created() {
+            this.socket = io('https://looklikeliedns.onrender.com//')
+            this.socket.on('msgToClient', (message) => {
+                console.log(message);
+                this.receivedMessage(message)
+            })
+        }
+    })
+</script>
+</body>
+</html>

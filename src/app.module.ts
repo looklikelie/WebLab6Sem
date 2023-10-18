@@ -14,6 +14,7 @@ import { APP_FILTER } from '@nestjs/core';
 import {HttpExceptionFilter} from "./http-exception.filter";
 import { AuthModule } from './auth/auth.module';
 import {ConfigModule} from "@nestjs/config";
+import { AppGateway } from './app.gateway';
 
 
 @Module({
@@ -31,7 +32,7 @@ import {ConfigModule} from "@nestjs/config";
     },
   }),],
   controllers: [AppController],
-  providers: [AppService, PrismaService, UserService, ReviewService, ProductService, OrderService, {
+  providers: [AppGateway, AppService, PrismaService, UserService, ReviewService, ProductService, OrderService, {
     provide: APP_FILTER,
     useClass: HttpExceptionFilter,
   },],
