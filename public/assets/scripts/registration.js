@@ -4,7 +4,7 @@ let mail = document.querySelector("#mail");
 let name = document.querySelector("#name");
 
 const createUser = (data) => {
-    fetch('/users', {
+    fetch('https://looklikeliedns.onrender.com/user/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ let btn = document.querySelector("#add-btn");
 btn.addEventListener("click", () => {
     let data = getSignUpData();
 
-    fetch('/auth/signup', {
+    fetch('https://looklikeliedns.onrender.com/auth/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
