@@ -22,4 +22,8 @@ export class UserDto{
     @IsString()
     @ApiProperty()
     email: string
+
+    @IsString()
+    @ApiProperty()
+    supertoken: string
 }

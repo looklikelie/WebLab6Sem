@@ -18,6 +18,7 @@ model User {
   name      String?
   orders    Order[]
   review    Review[]
+  supertoken String
 }
 
 model Product {
