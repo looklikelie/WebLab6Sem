@@ -3,7 +3,7 @@ import {
     Body,
     Controller,
     Delete,
-    Get, GoneException,
+    Get,
     Param,
     ParseIntPipe,
     Post,
@@ -18,7 +18,7 @@ import {AuthGuard} from "../auth/auth.guard";
 
 @ApiTags("Review")
 @Controller("review")
-@UseFilters(new HttpExceptionFilter())
+// @UseFilters(new HttpExceptionFilter())
 export class ReviewController {
     constructor(private readonly reviewService: ReviewService) {
     }

@@ -27,7 +27,7 @@ const get_request = async (url = '') => {
 
 gg = get_request(url + '/all');
 gg.then((result) => {
-    result.forEach((element) => addUIItem(element.text));
+    result.forEach((element) => addUIItem(element));
 });
 
 function add_to_BD(){
@@ -55,9 +55,9 @@ btn.addEventListener("click", () => {
     add_to_BD();
 });
 
-function addUIItem(txt) {
+function addUIItem(element) {
     let li = document.createElement("li");
-    li.innerHTML = txt;
+    li.innerHTML = element.text;
     list.insertBefore(li, list.childNodes[0]);
 }
 
