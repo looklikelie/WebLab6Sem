@@ -75,7 +75,7 @@
             }
         },
         created() {
-            this.socket = io('https://looklikeliedns.onrender.com//')
+            this.socket = io('https://looklikeliedns.onrender.com/')
             this.socket.on('msgToClient', (message) => {
                 console.log(message);
                 this.receivedMessage(message)
