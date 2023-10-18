@@ -7,13 +7,14 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    UseFilters
+    UseFilters, UseGuards
 } from "@nestjs/common";
-import {ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {ApiBasicAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
 import { Review } from "@prisma/client";
 import { ReviewService } from "./review.service";
 import { ReviewDto } from "./dto/review.dto";
 import {HttpExceptionFilter} from "../http-exception.filter";
+import {AuthGuard} from "../auth/auth.guard";
 
 @ApiTags("Review")
 @Controller("review")
@@ -37,6 +38,8 @@ export class ReviewController {
       type: ReviewDto
     })
     @Post("create")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async createReview(@Body() CreateReviewDto: ReviewDto): Promise<Review> {
         try{
             return await this.reviewService.create(CreateReviewDto);
@@ -85,6 +88,8 @@ export class ReviewController {
       description: 'Forbidden.'
     })
     @Post(":id/update")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async updateReview(@Param("id", ParseIntPipe) id: number,
                         @Body() ReviewDto: ReviewDto):
         Promise<Review> {
@@ -113,6 +118,8 @@ export class ReviewController {
       description: 'Forbidden.'
     })
     @Delete(":id")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async deleteReview(@Param("id", ParseIntPipe) id: number):
         Promise<void> {
         try{

@@ -7,13 +7,14 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    UseFilters
+    UseFilters, UseGuards
 } from "@nestjs/common";
-import {ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {ApiBasicAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {  Order } from "@prisma/client";
 import { OrderService } from "./order.service";
 import { OrderDto } from "./dto/order.dto";
 import {HttpExceptionFilter} from "../http-exception.filter";
+import {AuthGuard} from "../auth/auth.guard";
 
 @ApiTags("Order")
 @Controller("order")
@@ -37,6 +38,8 @@ export class OrderController {
         type: OrderDto
     })
     @Post("create")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async createReview(@Body() CreateOrderDto: OrderDto): Promise<Order> {
         try{
             return await this.orderService.create(CreateOrderDto);
@@ -63,6 +66,8 @@ export class OrderController {
         description: 'Forbidden.'
     })
     @Delete(":id")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async deleteOrder(@Param("id", ParseIntPipe) id: number):
         Promise<void> {
         try{
@@ -90,6 +95,8 @@ export class OrderController {
         description: 'Forbidden.'
     })
     @Get(":id")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async getOrder(@Param("id", ParseIntPipe) id: number):
         Promise<Order> {
         try{

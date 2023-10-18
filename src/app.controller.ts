@@ -3,14 +3,14 @@ import { AppInterceptor } from "./app.interceptor";
 import { SessionContainer } from "supertokens-node/recipe/session";
 import { AuthGuard } from './auth/auth.guard';
 import { Session } from './auth/session.decorator';
+import {ApiBasicAuth} from "@nestjs/swagger";
 
 @Controller()
 @UseInterceptors(AppInterceptor)
 export class AppController {
   @Get()
-  @UseGuards(new AuthGuard())
   @Render('pages/index')
-  async getTest(@Session() session: SessionContainer) {
+  root() {
     return {};
   }
 
@@ -40,6 +40,8 @@ export class AppController {
 
   @Get('wishlist')
   @Render('pages/wishlist')
+  @ApiBasicAuth()
+  @UseGuards(new AuthGuard())
   root5() {
     return {};
   }

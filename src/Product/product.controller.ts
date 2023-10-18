@@ -7,13 +7,14 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    UseFilters
+    UseFilters, UseGuards
 } from "@nestjs/common";
-import {ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {ApiBasicAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
 import { Product } from "@prisma/client";
 import { ProductService } from "./product.service";
 import { ProductDto } from "./dto/product.dto";
 import { HttpExceptionFilter } from "../http-exception.filter";
+import {AuthGuard} from "../auth/auth.guard";
 
 @ApiTags("Product")
 @Controller("product")
@@ -59,6 +60,8 @@ export class ProductController {
         type: ProductDto
     })
     @Post("create")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async createProduct(@Body() CreateProductDto: ProductDto): Promise<Product> {
         try{
             return await this.productService.create(CreateProductDto);
@@ -85,6 +88,8 @@ export class ProductController {
         description: 'Forbidden.'
     })
     @Post(":id/update")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async updateProduct(@Param("id", ParseIntPipe) id: number,
                      @Body() ProductDto: ProductDto):
         Promise<Product> {
@@ -113,6 +118,8 @@ export class ProductController {
         description: 'Forbidden.'
     })
     @Delete(":id")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async deleteProduct(@Param("id", ParseIntPipe) id: number):
         Promise<void> {
         try{

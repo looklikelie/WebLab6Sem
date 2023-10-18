@@ -7,13 +7,14 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    UseFilters
+    UseFilters, UseGuards
 } from "@nestjs/common";
-import {ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {ApiBasicAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {  User } from "@prisma/client";
 import { UserService } from "./user.service";
 import { UserDto } from "./dto/user.dto";
 import {HttpExceptionFilter} from "../http-exception.filter";
+import {AuthGuard} from "../auth/auth.guard";
 
 @ApiResponse({
     status: 501,
@@ -42,7 +43,9 @@ export class UserController {
         type: UserDto
     })
     @Post("create")
-    async createReview(@Body() CreateUserDto: UserDto): Promise<User> {
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
+    async createUser(@Body() CreateUserDto: UserDto): Promise<User> {
         try{
             return await this.userService.create(CreateUserDto);
         }
@@ -68,6 +71,8 @@ export class UserController {
         description: 'Forbidden.'
     })
     @Post(":id/update")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async updateUser(@Param("id", ParseIntPipe) id: number,
                        @Body() UserDto: UserDto):
         Promise<User> {
@@ -96,6 +101,8 @@ export class UserController {
         description: 'Forbidden.'
     })
     @Delete(":id")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async deleteUser(@Param("id") id: number):
         Promise<void> {
         try{
@@ -123,6 +130,8 @@ export class UserController {
         description: 'Forbidden.'
     })
     @Get(":id")
+    @ApiBasicAuth()
+    @UseGuards(new AuthGuard())
     async getUser(@Param("id") id: number):
         Promise<User> {
         try{
